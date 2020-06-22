@@ -9,56 +9,6 @@
   </entry>
   <entry>
     <title>Java中的锁-synchronized</title>
-    <url>/2020/06/16/volatile%E5%92%8CCAS/</url>
-    <content><![CDATA[<p>关于Java并发编程，volatile关键字和CAS操作都扮演着重要的角色。本文之所以把这两个放在一起讲，是因为两者的有机结合能实现锁的功能。volatile能保证内存可见性和防止重排序，CAS能保证操作的原子性（其实也能保证可见性），两者结合几乎拓展出了整个Java的并发包，Java中Lock的底层实现AQS所依赖的也正是volatile和CAS。</p>
-<a id="more"></a>
-
-<h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><p>volatile更像是轻量级的synchronized，它在多线程开发中保证了共享变量的“内存可见性”。如果volatile变量修饰符使用恰当的话，它比synchronized的使用和执行成本更低，因为它没有加锁解锁的开销。</p>
-<h2 id="volatile的定义"><a href="#volatile的定义" class="headerlink" title="volatile的定义"></a>volatile的定义</h2><p>Java语言规范第3版中对volatile的定义如下：Java编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致地更新，线程应该确保通过排他锁单独获得这个变量。Java语言提供了volatile，在某些情况下比锁要更加方便。如果一个字段被声明成volatile，Java内存模型能确保所有线程看到这个变量的值是一致的，即保证了内存可见性。</p>
-<h2 id="volatile的底层实现"><a href="#volatile的底层实现" class="headerlink" title="volatile的底层实现"></a>volatile的底层实现</h2><p>如果想知道volatile是如何保证内存可见性的，必然需要了解volatile的底层实现是什么。我们可以通过工具获取JIT编译器生成的汇编指令来查看对volatile进行写操作时，CPU会做些什么。</p>
-<p>在对有volatile修饰的共享变量进行写操作时，会在对应的汇编指令前加上Lock前缀。结合Java内存模型，我们可以这么理解：</p>
-<ol>
-<li>将当前工作内存中的共享变量（all）写回到主内存中去。</li>
-<li>步骤1会使得其他线程内的工作内存失效，后续读取共享变量必须从主内存中读取。</li>
-</ol>
-<p><img src="1rFnfOE3jT4Sx2h.jpg" alt=""></p>
-<h2 id="volatile的内存语义"><a href="#volatile的内存语义" class="headerlink" title="volatile的内存语义"></a>volatile的内存语义</h2><p>在学习《Java并发编程实战》这本书的时候，里面有句话令我印象十分的深刻。大致意思上说的是，比起内存可见性，volatile更重要的地方在于它的内存语义，使得它具有了一些锁的性质。</p>
-<p>volatile的语义主要是读和写，具体如下：</p>
-<ul>
-<li>volatile写：当写一个volatile变量时，JMM会把该线程对应的本地内存中的共享变量刷新到主内存。</li>
-<li>volatile读：当读一个volatile变量时，JMM会把该线程对应的本地内存置为无效。线程接下来将从主内存中读取共享变量。</li>
-</ul>
-<h2 id="volatile内存语义的实现原理"><a href="#volatile内存语义的实现原理" class="headerlink" title="volatile内存语义的实现原理"></a>volatile内存语义的实现原理</h2><p>编译器或者处理器为了提高运行效率会对指令进行重排序。为了实现volatile内存语义，编译器在声称字节码时，会在指令序列中插入内存屏障来紧致特定类型对处理器重排序。简单来说有下面四种：</p>
-<ol>
-<li>在每个volatile写操作的前面插入一个StoreStore屏障。</li>
-<li>在每个volatile写操作的后面插入一个StoreLoad屏障。</li>
-<li>在每个volatile读操作的后面插入一个LoadLoad屏障。</li>
-<li>在每个volatile读操作的后面插入一个LoadStore屏障。</li>
-</ol>
-<p>可能看图来说会比较直观一点，请看下图</p>
-<p><img src="QJBxqugDAsobh1e.jpg" alt=""></p>
-<p>这样子可能会好理解吧。正因为禁止了部分的重排序，加上内存可见性的保证，所以保证了volatile类似于锁的内存语义。</p>
-<h1 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h1><p>CAS指的是Compare And Swap（在Java中调用的函数应该为CompareAndSet），顾名思义是比较并替换的意思。CAS实际上是乐观锁的一种实现，不需要对资源加锁，当我们需要更改变量时，需要一个旧的预期值A,主内存的值是V，要修改的值B，当且仅当A==V的时候，V的值才会被修改成B，而且是一个非阻塞性的原子操作。一般而言，Java中大部分都是通过循环和CAS配合来实现修改变量的。</p>
-<h2 id="CAS的实现原理"><a href="#CAS的实现原理" class="headerlink" title="CAS的实现原理"></a>CAS的实现原理</h2><p>我们可以追踪源码来看看CAS底层是如何实现的，以AtmoicInteger为例，其底层最终调用的方法为</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSetInt</span><span class="params">(Object o, <span class="keyword">long</span> offset,</span></span></span><br><span class="line"><span class="function"><span class="params">                                             <span class="keyword">int</span> expected,</span></span></span><br><span class="line"><span class="function"><span class="params">                                             <span class="keyword">int</span> x)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>可以看到这是一个native方法，也就是说Java中的CAS底层是通过JNI去调用C代码操作OS来获取的一个原子操作.</p>
-<h2 id="CAS的三大问题"><a href="#CAS的三大问题" class="headerlink" title="CAS的三大问题"></a>CAS的三大问题</h2><p>CAS虽然很高效地解决了原子操作，但是CAS仍然存在三大问题。ABA问题，循环时间长开销大，以及只能保证一个共享变量的原子操作。</p>
-<ul>
-<li>ABA问题：在CAS操作中，会出现ABA问题。就是如果V的值先由A变成B，再由B变成A，那么仍然认为是发生了变化，并需要重新执行算法中的步骤。有简单的解决方案：不是更新某个引用的值，而是更新两个值，包括一个引用和一个版本号，即使这个值由A变为B，然后为变为A，版本号也是不同的。</li>
-<li>循环时间长开销大：CAS配合循环使用，就是不断重复通过执行CAS指令，直到成功为止，当长时间进行CAS的自旋的时候，会引起CPU资源的大量消耗。</li>
-<li>只能保证一个共享变量的原子操作：当只有一个共享变量进行CAS操作的时候，就可以进行自旋的CAS去进行原子操作，但是对多个共享变量进行CAS操作的时候，循环CAS无法保证原子性。这时候我们可以取巧将这两个变量放在一个对象里面</li>
-</ul>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>volatile与CAS的配合我们在源码中会经常遇到，比如AQS、原子类等，所以深入了解这两个还是十分有必要的。</p>
-]]></content>
-      <categories>
-        <category>Java并发</category>
-      </categories>
-      <tags>
-        <tag>Java并发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java中的锁-synchronized</title>
     <url>/2020/06/10/Java%E4%B8%AD%E7%9A%84%E9%94%81-synchronized/</url>
     <content><![CDATA[<p>之前的文章主要结合例子介绍了一些概念性的东西，比如JMM，并发的三大问题等。</p>
 <p>本文主要介绍的是Java中的synchronized关键字，从使用入手，慢慢阐述其实现原理以及使用时候等注意事项。</p>
