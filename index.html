@@ -144,6 +144,81 @@
 
 </article>
     
+    <article id="post-Java中的NIO" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/07/08/Java%E4%B8%AD%E7%9A%84NIO/"
+    >Java中的NIO</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/07/08/Java%E4%B8%AD%E7%9A%84NIO/" class="article-date">
+  <time datetime="2020-07-08T03:43:00.000Z" itemprop="datePublished">2020-07-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/IO/">IO</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>最近在有意无意开始复习以前的知识点，今天重新捡起了《Java NIO（中文版）》这本书，遂记录一下。<br>本文主要是介绍NIO的一些概念，包括其三大组件：Buffer、Channel和Selector，以原理为主。有一说一，NIO使用起来还是蛮复杂的，可能绝大多数情况下我们也接触不到，所以有些地方讲的不到位，请大家见谅。</p>
+<p>阅读本文之前，最好能了解下常见的IO模型，比如：同步阻塞IO，同步非阻塞IO，IO多路复用等等。</p>
+      
+      <a class="article-more-link" href="/2020/07/08/Java%E4%B8%AD%E7%9A%84NIO/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IO/" rel="tag">IO</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-Arrays.asList()的使用" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -336,80 +411,6 @@
       <p>Java从JDK1.5开始提供了java.util.concurrent.atomic包，这个包中当原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。变量的类型有很多，所以Atomic包下一共提供了13个类。本文主要以AtomicInteger为例，对它的源码进行剖析，来明白原子类的实现原理。</p>
       
       <a class="article-more-link" href="/2020/06/20/Java%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%B1%BB/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%B9%B6%E5%8F%91/" rel="tag">Java并发</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-volatile和CAS" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/06/16/volatile%E5%92%8CCAS/"
-    >volatile和CAS</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/06/16/volatile%E5%92%8CCAS/" class="article-date">
-  <time datetime="2020-06-16T15:10:43.000Z" itemprop="datePublished">2020-06-16</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>关于Java并发编程，volatile关键字和CAS操作都扮演着重要的角色。本文之所以把这两个放在一起讲，是因为两者的有机结合能实现锁的功能。volatile能保证内存可见性和防止重排序，CAS能保证操作的原子性（其实也能保证可见性），两者结合几乎拓展出了整个Java的并发包，Java中Lock的底层实现AQS所依赖的也正是volatile和CAS。</p>
-      
-      <a class="article-more-link" href="/2020/06/16/volatile%E5%92%8CCAS/">阅读更多...</a>
       
       
       <!-- reward -->

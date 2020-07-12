@@ -75,6 +75,80 @@
     
     
     
+    <article id="post-volatile和CAS" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/06/16/volatile%E5%92%8CCAS/"
+    >volatile和CAS</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/06/16/volatile%E5%92%8CCAS/" class="article-date">
+  <time datetime="2020-06-16T15:10:43.000Z" itemprop="datePublished">2020-06-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>关于Java并发编程，volatile关键字和CAS操作都扮演着重要的角色。本文之所以把这两个放在一起讲，是因为两者的有机结合能实现锁的功能。volatile能保证内存可见性和防止重排序，CAS能保证操作的原子性（其实也能保证可见性），两者结合几乎拓展出了整个Java的并发包，Java中Lock的底层实现AQS所依赖的也正是volatile和CAS。</p>
+      
+      <a class="article-more-link" href="/2020/06/16/volatile%E5%92%8CCAS/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%B9%B6%E5%8F%91/" rel="tag">Java并发</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-Java中的锁-synchronized" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -354,80 +428,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A7%84%E8%8C%83/" rel="tag">规范</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-有return的情况下try catch finally的执行顺序" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/13/%E6%9C%89return%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8Btry%20catch%20finally%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/"
-    >有return的情况下try catch finally的执行顺序</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/13/%E6%9C%89return%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8Btry%20catch%20finally%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" class="article-date">
-  <time datetime="2020-05-13T14:00:11.000Z" itemprop="datePublished">2020-05-13</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>今天偶然间看到一个帖子，关于return在try，catch，finally 中其执行顺序，却发现自己也拿不准，特此本地coding了一番，记录了几种情况，挖掘了下原因。</p>
-      
-      <a class="article-more-link" href="/2020/05/13/%E6%9C%89return%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8Btry%20catch%20finally%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
 
 
     </footer>
