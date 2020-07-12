@@ -8,6 +8,31 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Arrays.asList()的使用</title>
+    <url>/2020/07/01/Arrays.asList()%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p><strong>Arrays.asList()</strong>在平时开发中还是比较常见的，这个方法可以将数组转换为集合，但是对于这个方法的使用，还是需要看一下它的注意事项。</p>
+<a id="more"></a>
+<h1 id="《阿里巴巴Java开发手册》对其的描述"><a href="#《阿里巴巴Java开发手册》对其的描述" class="headerlink" title="《阿里巴巴Java开发手册》对其的描述"></a>《阿里巴巴Java开发手册》对其的描述</h1><p><strong>Arrays.asList()</strong>将数组转换为集合后，底层其实还是数组，《阿里巴巴Java开发手册》对于这个方法有以下描述：</p>
+<p><img src="lalalala.png" alt=""></p>
+<h1 id="使用时的注意事项"><a href="#使用时的注意事项" class="headerlink" title="使用时的注意事项"></a>使用时的注意事项</h1><h2 id="传递的数组必须是对象数组，而不是基本类型数组"><a href="#传递的数组必须是对象数组，而不是基本类型数组" class="headerlink" title="传递的数组必须是对象数组，而不是基本类型数组"></a>传递的数组必须是对象数组，而不是基本类型数组</h2><p>Arrays.asList()是泛型方法，传入的对象必须是对象数组。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] myArray = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line">List myList = Arrays.asList(myArray);</span><br><span class="line">System.out.println(myList.size());<span class="comment">//1</span></span><br><span class="line">System.out.println(myList.get(<span class="number">0</span>));<span class="comment">//数组地址值</span></span><br><span class="line">System.out.println(myList.get(<span class="number">1</span>));<span class="comment">//报错：ArrayIndexOutOfBoundsException</span></span><br><span class="line"><span class="keyword">int</span> [] array=(<span class="keyword">int</span>[]) myList.get(<span class="number">0</span>);</span><br><span class="line">System.out.println(array[<span class="number">0</span>]);<span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<p>当传入一个原生数据类型数组时，Arrays.asList() 的真正得到的参数就不是数组中的元素，而是数组对象本身！此时List 的唯一元素就是这个数组，这也就解释了上面的代码。</p>
+<p>我们使用包装类型数组iu可以解决这个问题。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Integer[] myArrray = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="使用集合的修改方法-add-、remove-、clear-会抛出异常。"><a href="#使用集合的修改方法-add-、remove-、clear-会抛出异常。" class="headerlink" title="使用集合的修改方法:add()、remove()、clear()会抛出异常。"></a>使用集合的修改方法:add()、remove()、clear()会抛出异常。</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List myList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">myList.add(<span class="number">4</span>);<span class="comment">//运行时报错：UnsupportedOperationException</span></span><br><span class="line">myList.remove(<span class="number">1</span>);<span class="comment">//运行时报错：UnsupportedOperationException</span></span><br><span class="line">myList.clear();<span class="comment">//运行时报错：UnsupportedOperationException</span></span><br></pre></td></tr></table></figure>
+<p>Arrays.asList() 方法返回的并不是 java.util.ArrayList ，而是 java.util.Arrays的一个内部类,这个内部类并没有实现集合的修改方法或者说并没有重写这些方法。</p>
+<h1 id="如何正确的将数组转换为ArrayList？"><a href="#如何正确的将数组转换为ArrayList？" class="headerlink" title="如何正确的将数组转换为ArrayList？"></a>如何正确的将数组转换为ArrayList？</h1><p>推荐一个我最常用的方法（自认为很简便）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List list = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(arr));</span><br></pre></td></tr></table></figure>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>在使用jdk为我们封装好的方法得到便利的同时，也要多去寻找一些注意事项。</p>
+]]></content>
+      <categories>
+        <category>规范</category>
+      </categories>
+      <tags>
+        <tag>规范</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ThreadLocal类解析</title>
     <url>/2020/06/24/ThreadLocal%E7%B1%BB%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<p>如果说每个线程都需要自己的独立实例，且该实例需要在多个方法中被使用（相同线程数据共享），又该如何去实现呢？在方法参数上定义这个共享的变量吗？显然这样子耦合太严重了，牵一发而动全身；那么使用一个全局的集合来共享数据？这又涉及到了多个线程之间的同步问题，只是为了能让线程间隔离数据而使用同步开销太大。</p>
