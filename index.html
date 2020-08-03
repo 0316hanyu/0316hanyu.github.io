@@ -114,7 +114,7 @@
 
       
       <p>欢迎来到我的博客<br></p>
-<p>我是韩宇，一个只爱婧雯的man…<br><br>这里是我平时写的一些文章，希望能给读者们带来一些帮助，分享一些所学所思～</p>
+<p>我是韩宇，一名初出茅庐的Java开发爱好者…<br><br>这里是我平时写的一些文章，希望能给读者们带来一些帮助，分享一些所学所思～</p>
 
       
       <!-- reward -->
@@ -127,6 +127,80 @@
     <footer class="article-footer">
       
       
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-ArrayList源码解析" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/07/17/ArrayList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"
+    >ArrayList源码解析</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/07/17/ArrayList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="article-date">
+  <time datetime="2020-07-17T14:22:43.000Z" itemprop="datePublished">2020-07-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9B%86%E5%90%88/">集合</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>ArrayList也是一种老生常谈的集合。它的底层数据结构是数组，支持动态扩容。优点是查询速度快，时间效率高；缺点是空间效率不高。我自己在项目中ArrayList用的也挺多的，但是之前也没有看过底层实现，很多理解也只是在停留在表面。想要深入理解，还是得分析源码，从中学习，本文的目的也在于此。</p>
+      
+      <a class="article-more-link" href="/2020/07/17/ArrayList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li></ul>
+
 
     </footer>
 
@@ -337,80 +411,6 @@
 <p>ThreadLocal就是适用于这样的场景。本文从ThreadLocal的简单使用开始入手，通过源码来阐述其使用原理以及一些隐患。</p>
       
       <a class="article-more-link" href="/2020/06/24/ThreadLocal%E7%B1%BB%E8%A7%A3%E6%9E%90/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%B9%B6%E5%8F%91/" rel="tag">Java并发</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-Java中的原子基本类型类" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/06/20/Java%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%B1%BB/"
-    >Java中的原子基本类型类</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/06/20/Java%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%B1%BB/" class="article-date">
-  <time datetime="2020-06-20T14:41:43.000Z" itemprop="datePublished">2020-06-20</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Java从JDK1.5开始提供了java.util.concurrent.atomic包，这个包中当原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。变量的类型有很多，所以Atomic包下一共提供了13个类。本文主要以AtomicInteger为例，对它的源码进行剖析，来明白原子类的实现原理。</p>
-      
-      <a class="article-more-link" href="/2020/06/20/Java%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%B1%BB/">阅读更多...</a>
       
       
       <!-- reward -->
